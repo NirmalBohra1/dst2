@@ -50,7 +50,7 @@ const UpdateDstMc = ({ goBack, setLoader, user, setNotify }) => {
   const [encodedFormURI, setEncodedFormURI] = useState(getFormURI(formId, formSpec.forms[formId].onSuccess, formSpec.forms[formId].prefill));
 
 
-  function afterFormSubmit (e) {
+  function afterFormSubmit(e) {
     const data = JSON.parse(e.data);
     try {
       /* message = {
@@ -59,7 +59,7 @@ const UpdateDstMc = ({ goBack, setLoader, user, setNotify }) => {
       }
       */
       const { nextForm, formData, onSuccessData, onFailureData } = data;
-      if(data.state == 'ON_FORM_SUCCESS_COMPLETED') {
+      if (data.state == 'ON_FORM_SUCCESS_COMPLETED') {
         console.log('formData', formData);
         /*const reqData = {
           id: formData.id
@@ -87,12 +87,12 @@ const UpdateDstMc = ({ goBack, setLoader, user, setNotify }) => {
   const fetchUserDetails = async () => {
     setLoader(true);
     const reqData = {
-      itiName : user?.user?.user?.username || ''
+      itiName: user?.user?.user?.username || ''
     };
-    const {data: {principal}} = await getLoggedInITIDetails(reqData);
+    const { data: { principal } } = await getLoggedInITIDetails(reqData);
     setUserDetails(principal[0]);
-    formSpec.forms[formId].prefill.district2 = "`"+`${principal[0]?.district}`+"`";
-    formSpec.forms[formId].prefill.ITI2 = "`"+`${principal[0]?.iti}`+"`";
+    formSpec.forms[formId].prefill.district2 = "`" + `${principal[0]?.district}` + "`";
+    formSpec.forms[formId].prefill.ITI2 = "`" + `${principal[0]?.iti}` + "`";
     setEncodedFormSpec(encodeURI(JSON.stringify(formSpec.forms[formId])));
     setEncodedFormURI(getFormURI(formId, formSpec.forms[formId].onSuccess, formSpec.forms[formId].prefill));
     setLoader(false);
@@ -112,7 +112,7 @@ const UpdateDstMc = ({ goBack, setLoader, user, setNotify }) => {
   };
 
   const bindEventListener = () => {
-    window.addEventListener('message', (e) => {afterFormSubmit(e);});
+    window.addEventListener('message', (e) => { afterFormSubmit(e); });
   };
 
   useEffect(() => {
@@ -138,7 +138,7 @@ const UpdateDstMc = ({ goBack, setLoader, user, setNotify }) => {
     const reqData = {
       itiId: currentITI
     };
-    const {data: {dst_mc_meeting}} = await getFilteredTrades(reqData);
+    const { data: { dst_mc_meeting } } = await getFilteredTrades(reqData);
     const list = dst_mc_meeting.map((item) => item.trade);
     setTrades(list);
   };
@@ -149,7 +149,7 @@ const UpdateDstMc = ({ goBack, setLoader, user, setNotify }) => {
       trade: value
     };
     setSelectedTrade(value);
-    const {data: {dst_mc_meeting}} = await getFilteredBatch(reqData);
+    const { data: { dst_mc_meeting } } = await getFilteredBatch(reqData);
     const list = dst_mc_meeting.map((item) => item.batch);
     setBatches(list);
     setFilteredIndustries([]);
@@ -161,7 +161,7 @@ const UpdateDstMc = ({ goBack, setLoader, user, setNotify }) => {
       trade: selectedTrade,
       batch: value
     };
-    const {data: {dst_mc_meeting}} = await getFilteredIndustry(reqData);
+    const { data: { dst_mc_meeting } } = await getFilteredIndustry(reqData);
     const list = dst_mc_meeting.map((item) => item.industry);
     setFilteredIndustries(list);
     setSelectedFilteredIndustry('');
@@ -173,52 +173,17 @@ const UpdateDstMc = ({ goBack, setLoader, user, setNotify }) => {
 
 
   return (
-      <div>
-        <Header title="Update DST MC" onBackButton={onBack} />
-        <div className="grid grid-cols-3 gap-x-4 p-4">
-          <select className="form-select appearance-none px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                  name="trade" id="trade"
-                  onChange={(event) => {onTradesSelect(event.target.value);}}
-          >
-            <option value="">Select Trade</option>
-            {
-              trades && trades.length > 0 && trades.map((item) => <option value={item}>{item}</option>)
-            }
-          </select>
-
-          <select className="form-select appearance-none px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                  name="trade" id="trade"
-                  onChange={(event) => {onBatchSelect(event.target.value);}}
-          >
-            <option value="">Select Batch</option>
-            {
-              batches && batches.length > 0 && batches.map((item) => <option value={item}>{item}</option>)
-            }
-          </select>
-
-          <select className="form-select appearance-none px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                  name="filteredIndustries" id="filteredIndustries"
-                  onChange={(event) => {setSelectedFilteredIndustry(event.target.value);}}
-          >
-            <option value="">Select Industry</option>
-            {
-              filteredIndustries && filteredIndustries.length > 0 && filteredIndustries.map((item) => <option value={item.id}>{item.name}</option>)
-            }
-          </select>
-
-        </div>
-        {
-          filteredIndustries && filteredIndustries.length > 0 && selectedFilteredIndustry && <div className="text-center text-teal-700">
-            <iframe title='current-form'
-                    key={+new Date()}
-                    style={{ height: "100vh", width: "100vw" }}
-                    src={
-                      `http://localhost:8005/preview?formSpec=${encodedFormSpec}&xform=${encodedFormURI}`
-                    }
-            />
-          </div>
-        }
+    <div>
+      <Header title="Create DST MC" onBackButton={onBack} />
+      <div className="text-center text-teal-700">
+        <iframe title='current-form'
+          style={{ height: "100vh", width: "100vw" }}
+          src={
+            `http://localhost:8065/preview?formSpec=${encodedFormSpec}&xform=${encodedFormURI}`
+          }
+        />
       </div>
+    </div>
   );
 };
 
