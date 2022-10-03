@@ -45,25 +45,22 @@ const ITIOptions = ({ goBack, setGoBack, setNotify, user }) => {
   return (
     <div>
       <Header />
-      <div className="p-2">
+      <div className="p-2 pb-10">
         <div className="m-10 text-teal-800 text-center">
           <h2 className="header-text-color">Please select one option to proceed</h2>
         </div>
         <div className="grid grid-cols-12 mb-10">
-          <div className="col-span-2"></div>
-          <div className="col-span-10 grid grid-cols-1 gap-y-9">
-            <div
-                onClick={onDstMc}
-                className="text-lg cursor-pointer"
+          <div className="col-span-12 grid grid-cols-1 gap-y-9">
+            <div className="text-lg cursor-pointer" onClick={onDstMc}
             >
-              <div className="flex items-center text-teal-700">
-                <UserAddIcon className="w-2/12 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/6 pr-3" aria-hidden="true" />
-                <span>Create DST MC</span>
+              <div className="flex items-center justify-center text-teal-700">
+                <UserAddIcon className="w-2/12 sm:w-1/4 md:w-1/6 lg:w-1/12 xl:w-1/12 pr-3" aria-hidden="true" />
+                <span>Create, cancel, or update DST MC</span>
               </div>
             </div>
             <div className="text-lg cursor-pointer" onClick={onUpdateAcademicCalendar}>
-              <div className="flex items-center text-teal-700">
-                <CalendarIcon className="w-2/12 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/6 pr-3" aria-hidden="true" />
+              <div className="flex items-center justify-center text-teal-700">
+                <CalendarIcon className="w-2/12 sm:w-1/4 md:w-1/6 lg:w-1/12 xl:w-1/12 pr-3" aria-hidden="true" />
                 <span>Update Academic Calendar</span>
               </div>
             </div>

@@ -34,7 +34,7 @@ const ITILogin = ({
     setLoader(true);
     const Res = await ITIlogin(reqData);
     if(Res){
-      const { responseCode, message, result } = Res;
+      const { responseCode, message, result, params } = Res;
       if (responseCode === 'OK') {
         setUser({ ...result.data });
         setNotify({ message: 'Login successfully', type: 'success' });
@@ -42,7 +42,7 @@ const ITILogin = ({
         setGoBack(goBack);
         browserHistory.push('/iti-welcome');
       } else {
-        setNotify({ message: message || "can't login", type: 'error' });
+        setNotify({ message: params.errMsg || "can't login", type: 'error' });
       }
     }
     setLoader(false);

@@ -38,55 +38,59 @@ const ITIWelcome = ({ goBack, setGoBack, setLoader, setNotify, user }) => {
 
   return (
     <div>
-      <Header />
-      <div className="flex items-center justify-center text-teal-700">
-        <UserIcon className="w-5/12 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/6" aria-hidden="true" />
-      </div>
-      <div className="flex mb-10 items-center justify-center text-2xl font-bold text-teal-700">
-        <span className="font-semibold">Welcome</span>
-      </div>
-      <div className="p-10 flex flex-col space-y-8">
-        <div className="text-teal-700">
-          <span className="m-2 my-8">ITI Name:</span>
-          <span className="m-2 my-8">{userDetails?.iti}</span>
+        <Header />
+        <div className="flex items-center justify-center text-teal-700">
+            <UserIcon className="w-5/12 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/6" aria-hidden="true" />
         </div>
-          <div className="text-teal-700">
-              <span className="m-2 my-8">District:</span>
-              <span className="m-2 my-8">{userDetails?.district}</span>
-          </div>
-        <div className="text-teal-700">
-          <span className="m-2 my-8">Principal:</span>
-          <span className="m-2 my-8">{userDetails?.principal_name}</span>
+        <div className="flex mb-10 items-center justify-center text-2xl font-bold text-teal-700">
+            <span className="font-semibold">Welcome</span>
         </div>
-        <div className="text-teal-700">
-          <span className="m-2 my-8">Email ID:</span>
-          <span className="m-2 my-8">{userDetails?.email_id}</span>
+        <div className="grid grid-cols-1 place-items-center">
+            <div className="p-10 flex flex-col space-y-8">
+                <div className="text-teal-700">
+                    <span className="m-2 my-8">ITI Name:</span>
+                    <span className="m-2 my-8">{userDetails?.iti}</span>
+                </div>
+                <div className="text-teal-700">
+                    <span className="m-2 my-8">District:</span>
+                    <span className="m-2 my-8">{userDetails?.district}</span>
+                </div>
+                <div className="text-teal-700">
+                    <span className="m-2 my-8">Principal:</span>
+                    <span className="m-2 my-8">{userDetails?.principal_name}</span>
+                </div>
+                <div className="text-teal-700">
+                    <span className="m-2 my-8">Email ID:</span>
+                    <span className="m-2 my-8">{userDetails?.email_id}</span>
+                </div>
+                <div className="text-teal-700">
+                    <span className="m-2 my-8">Phone No.:</span>
+                    <span className="m-2 my-8">{userDetails?.contact_number}</span>
+                </div>
+            </div>
         </div>
-        <div className="text-teal-700">
-          <span className="m-2 my-8">Phone No.:</span>
-          <span className="m-2 my-8">{userDetails?.contact_number}</span>
+        <div className="grid grid-cols-1 place-items-center">
+            <div className="p-10 flex item-center justify-around">
+                <button
+                    onClick={onResetPassword}
+                    className="bg-teal-700 hover:bg-teal-500 text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline flex-1"
+                    type="button"
+                >
+                    Reset Password
+                </button>
+                <span className="w-5"></span>
+                <button
+                    onClick={onNext}
+                    className="bg-teal-700 hover:bg-teal-500 text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline flex-1"
+                    type="button"
+                >
+                    Next
+                </button>
+            </div>
         </div>
-      </div>
-      <div className="p-10 flex item-center justify-around">
-          <button
-              onClick={onResetPassword}
-              className="bg-teal-700 hover:bg-teal-500 text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline flex-1"
-              type="button"
-          >
-              Reset Password
-          </button>
-          <span className="w-5"></span>
-          <button
-              onClick={onNext}
-              className="bg-teal-700 hover:bg-teal-500 text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline flex-1"
-              type="button"
-          >
-              Next
-          </button>
-      </div>
-      <div className="p-10 flex item-center justify-center">
-        <span className="text-teal-700">Incase details are incorrect, contact SDIT department</span>
-      </div>
+        <div className="p-10 flex item-center justify-center">
+            <span className="text-teal-700">Incase details are incorrect, contact SDIT department</span>
+        </div>
     </div>
   );
 };

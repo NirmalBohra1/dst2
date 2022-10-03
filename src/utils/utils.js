@@ -201,6 +201,20 @@ export const createDstMc = (data) => {
   return generateHasuraAPI(query);
 };
 
+//todo: need to test this api
+export const updateDstMc = (data) => {
+  const query = {
+    query: `mutation MyMutation($id: bigint = "", $industry_id: Int = 10) {
+      update_dst_mc_meeting_by_pk(pk_columns: {id: $id}, _set: {industry_id: $industry_id}) {
+        industry_id
+        id
+      }
+    }`,
+    "variables": {id: data.id, industry_id: data.industryId}
+  };
+  return generateHasuraAPI(query);
+};
+
 export const deleteDstMc = (data) => {
   const query = {
     query: `mutation ($id: String) {
@@ -209,6 +223,82 @@ export const deleteDstMc = (data) => {
       }
     }`,
     "variables": {id: data.id}
+  };
+  return generateHasuraAPI(query);
+};
+
+//todo: need to test these filtered apis
+export const getFilteredTrades = (data) => {
+  const query = {
+    query: `query ($iti_id: Int) {
+      dst_mc_meeting(where: {iti_id: {_eq: $iti_id}}) {
+        id
+        district
+        iti_id
+        iti {
+          id
+          name
+        }
+        industry {
+          id
+          name
+          district
+        }
+        batch
+        trade
+      }
+    }`,
+    "variables": {iti_id: data.itiId}
+  };
+  return generateHasuraAPI(query);
+};
+
+export const getFilteredBatch = (data) => {
+  const query = {
+    query: `query ($iti_id: Int, $trade: String) {
+      dst_mc_meeting(where: {iti_id: {_eq: $iti_id}, trade: {_eq: $trade}}) {
+        id
+        district
+        iti_id
+        iti {
+          id
+          name
+        }
+        industry {
+          id
+          name
+          district
+        }
+        batch
+        trade
+      }
+    }`,
+    "variables": {iti_id: data.itiId, trade: data.trade}
+  };
+  return generateHasuraAPI(query);
+};
+
+export const getFilteredIndustry = (data) => {
+  const query = {
+    query: `query ($iti_id: Int, $trade: String, $batch: String) {
+      dst_mc_meeting(where: {iti_id: {_eq: $iti_id}, trade: {_eq: $trade}, batch: {_eq: $batch}}) {
+        id
+        district
+        iti_id
+        iti {
+          id
+          name
+        }
+        industry {
+          id
+          name
+          district
+        }
+        batch
+        trade
+      }
+    }`,
+    "variables": {iti_id: data.itiId, trade: data.trade, batch: data.batch}
   };
   return generateHasuraAPI(query);
 };
