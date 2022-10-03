@@ -113,9 +113,9 @@ const CancelDstMc = ({ goBack, setLoader, user, setNotify }) => {
   };
 
   const bindEventListener = () => {
-    window.removeEventListener('message', (e) => {afterFormSubmit(e);});
+    window.removeEventListener('message', (e) => { afterFormSubmit(e); });
     window.setTimeout(() => {
-      window.addEventListener('message', (e) => {afterFormSubmit(e);});
+      window.addEventListener('message', (e) => { afterFormSubmit(e); });
     }, 1500);
   };
 
@@ -142,7 +142,7 @@ const CancelDstMc = ({ goBack, setLoader, user, setNotify }) => {
     const reqData = {
       itiId: currentITI
     };
-    const {data: {dst_mc_meeting}} = await getFilteredTrades(reqData);
+    const { data: { dst_mc_meeting } } = await getFilteredTrades(reqData);
     const list = dst_mc_meeting.map((item) => item.trade);
     setTrades(list);
   };
@@ -153,7 +153,7 @@ const CancelDstMc = ({ goBack, setLoader, user, setNotify }) => {
       trade: value
     };
     setSelectedTrade(value);
-    const {data: {dst_mc_meeting}} = await getFilteredBatch(reqData);
+    const { data: { dst_mc_meeting } } = await getFilteredBatch(reqData);
     const list = dst_mc_meeting.map((item) => item.batch);
     setBatches(list);
     setFilteredIndustries([]);
@@ -166,7 +166,7 @@ const CancelDstMc = ({ goBack, setLoader, user, setNotify }) => {
       batch: value
     };
     setSelectedBatch(value);
-    const {data: {dst_mc_meeting}} = await getFilteredIndustry(reqData);
+    const { data: { dst_mc_meeting } } = await getFilteredIndustry(reqData);
     const list = dst_mc_meeting.map((item) => item.industry);
     setFilteredIndustries(list);
     setSelectedFilteredIndustry('');
@@ -174,9 +174,9 @@ const CancelDstMc = ({ goBack, setLoader, user, setNotify }) => {
 
   const onIndustrySelect = async (value) => {
     setSelectedFilteredIndustry(event.target.value);
-    formSpec.forms[formId].prefill.dst_trade2 = "`"+`${selectedTrade}`+"`";
-    formSpec.forms[formId].prefill.dst_batch2 = "`"+`${selectedBatch}`+"`";
-    formSpec.forms[formId].prefill.industry_partner2 = "`"+`${value}`+"`";
+    formSpec.forms[formId].prefill.dst_trade2 = "`" + `${selectedTrade}` + "`";
+    formSpec.forms[formId].prefill.dst_batch2 = "`" + `${selectedBatch}` + "`";
+    formSpec.forms[formId].prefill.industry_partner2 = "`" + `${value}` + "`";
     setEncodedFormSpec(encodeURI(JSON.stringify(formSpec.forms[formId])));
     setEncodedFormURI(getFormURI(formId, formSpec.forms[formId].onSuccess, formSpec.forms[formId].prefill));
   };
@@ -190,16 +190,9 @@ const CancelDstMc = ({ goBack, setLoader, user, setNotify }) => {
     <div>
       <Header title="Create DST MC" onBackButton={onBack} />
       <div className="text-center text-teal-700">
-        <iframe title='current-form'
-          style={{ height: "100vh", width: "100vw" }}
-          src={
-            `http://localhost:8065/preview?formSpec=${encodedFormSpec}&xform=${encodedFormURI}`
-          }
-        </select>
-
         <select className="form-select appearance-none px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                name="trade" id="trade"
-                onChange={(event) => {onBatchSelect(event.target.value);}}
+          name="trade" id="trade"
+          onChange={(event) => { onBatchSelect(event.target.value); }}
         >
           <option value="">Select Batch</option>
           {
@@ -208,8 +201,8 @@ const CancelDstMc = ({ goBack, setLoader, user, setNotify }) => {
         </select>
 
         <select className="form-select appearance-none px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                name="filteredIndustries" id="filteredIndustries"
-                onChange={(event) => {onIndustrySelect(event.target.value);}}
+          name="filteredIndustries" id="filteredIndustries"
+          onChange={(event) => { onIndustrySelect(event.target.value); }}
         >
           <option value="">Select Industry</option>
           {
@@ -221,11 +214,11 @@ const CancelDstMc = ({ goBack, setLoader, user, setNotify }) => {
       {
         filteredIndustries && filteredIndustries.length > 0 && selectedFilteredIndustry && <div className="text-center text-teal-700">
           <iframe title='current-form'
-                  key={+new Date()}
-                  style={{ height: "100vh", width: "100vw" }}
-                  src={
-                    `http://localhost:8005/preview?formSpec=${encodedFormSpec}&xform=${encodedFormURI}`
-                  }
+            key={+new Date()}
+            style={{ height: "100vh", width: "100vw" }}
+            src={
+              `http://localhost:8005/preview?formSpec=${encodedFormSpec}&xform=${encodedFormURI}`
+            }
           />
         </div>
       }

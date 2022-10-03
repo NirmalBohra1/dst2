@@ -50,7 +50,7 @@ const UpdateDstMc = ({ goBack, setLoader, user, setNotify }) => {
   const [encodedFormURI, setEncodedFormURI] = useState(getFormURI(formId, formSpec.forms[formId].onSuccess, formSpec.forms[formId].prefill));
 
 
-  function afterFormSubmit (e) {
+  function afterFormSubmit(e) {
     const data = JSON.parse(e.data);
     try {
       /* message = {
@@ -59,7 +59,7 @@ const UpdateDstMc = ({ goBack, setLoader, user, setNotify }) => {
       }
       */
       const { nextForm, formData, onSuccessData, onFailureData } = data;
-      if(data.state == 'ON_FORM_SUCCESS_COMPLETED') {
+      if (data.state == 'ON_FORM_SUCCESS_COMPLETED') {
         console.log('formData', formData);
         /*const reqData = {
           id: formData.id
@@ -87,12 +87,12 @@ const UpdateDstMc = ({ goBack, setLoader, user, setNotify }) => {
   const fetchUserDetails = async () => {
     setLoader(true);
     const reqData = {
-      itiName : user?.user?.user?.username || ''
+      itiName: user?.user?.user?.username || ''
     };
-    const {data: {principal}} = await getLoggedInITIDetails(reqData);
+    const { data: { principal } } = await getLoggedInITIDetails(reqData);
     setUserDetails(principal[0]);
-    formSpec.forms[formId].prefill.district2 = "`"+`${principal[0]?.district}`+"`";
-    formSpec.forms[formId].prefill.ITI2 = "`"+`${principal[0]?.iti}`+"`";
+    formSpec.forms[formId].prefill.district2 = "`" + `${principal[0]?.district}` + "`";
+    formSpec.forms[formId].prefill.ITI2 = "`" + `${principal[0]?.iti}` + "`";
     setEncodedFormSpec(encodeURI(JSON.stringify(formSpec.forms[formId])));
     setEncodedFormURI(getFormURI(formId, formSpec.forms[formId].onSuccess, formSpec.forms[formId].prefill));
     setLoader(false);
@@ -112,7 +112,7 @@ const UpdateDstMc = ({ goBack, setLoader, user, setNotify }) => {
   };
 
   const bindEventListener = () => {
-    window.addEventListener('message', (e) => {afterFormSubmit(e);});
+    window.addEventListener('message', (e) => { afterFormSubmit(e); });
   };
 
   useEffect(() => {
@@ -138,7 +138,7 @@ const UpdateDstMc = ({ goBack, setLoader, user, setNotify }) => {
     const reqData = {
       itiId: currentITI
     };
-    const {data: {dst_mc_meeting}} = await getFilteredTrades(reqData);
+    const { data: { dst_mc_meeting } } = await getFilteredTrades(reqData);
     const list = dst_mc_meeting.map((item) => item.trade);
     setTrades(list);
   };
@@ -149,7 +149,7 @@ const UpdateDstMc = ({ goBack, setLoader, user, setNotify }) => {
       trade: value
     };
     setSelectedTrade(value);
-    const {data: {dst_mc_meeting}} = await getFilteredBatch(reqData);
+    const { data: { dst_mc_meeting } } = await getFilteredBatch(reqData);
     const list = dst_mc_meeting.map((item) => item.batch);
     setBatches(list);
     setFilteredIndustries([]);
@@ -161,7 +161,7 @@ const UpdateDstMc = ({ goBack, setLoader, user, setNotify }) => {
       trade: selectedTrade,
       batch: value
     };
-    const {data: {dst_mc_meeting}} = await getFilteredIndustry(reqData);
+    const { data: { dst_mc_meeting } } = await getFilteredIndustry(reqData);
     const list = dst_mc_meeting.map((item) => item.industry);
     setFilteredIndustries(list);
     setSelectedFilteredIndustry('');
@@ -183,6 +183,7 @@ const UpdateDstMc = ({ goBack, setLoader, user, setNotify }) => {
           }
         />
       </div>
+    </div>
   );
 };
 
