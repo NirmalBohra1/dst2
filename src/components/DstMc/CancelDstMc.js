@@ -3,7 +3,7 @@ import withGoBack from '../../redux/HOC/withGoBack';
 import Header from '../Header';
 import formSpecJSON from "./cancelWorkflow.json";
 import React, { useState, useEffect } from 'react';
-import {deleteDstMc, getIndustriesList, getITIsList, getLoggedInITIDetails} from "../../utils/utils";
+import { deleteDstMc, getIndustriesList, getITIsList, getLoggedInITIDetails } from "../../utils/utils";
 import withNotify from "../../redux/HOC/withNotify";
 import withLoader from "../../redux/HOC/withLoader";
 import withUser from "../../redux/HOC/withUser";
@@ -36,7 +36,7 @@ const CancelDstMc = ({ goBack, setLoader, user, setNotify }) => {
   const [encodedFormURI, setEncodedFormURI] = useState(getFormURI(formId, formSpec.forms[formId].onSuccess, formSpec.forms[formId].prefill));
 
 
-  function afterFormSubmit (e) {
+  function afterFormSubmit(e) {
     const data = JSON.parse(e.data);
     try {
       /* message = {
@@ -45,7 +45,7 @@ const CancelDstMc = ({ goBack, setLoader, user, setNotify }) => {
       }
       */
       const { nextForm, formData, onSuccessData, onFailureData } = data;
-      if(data.state == 'ON_FORM_SUCCESS_COMPLETED') {
+      if (data.state == 'ON_FORM_SUCCESS_COMPLETED') {
         console.log('formData', formData);
         /*const reqData = {
           id: formData.id
@@ -73,12 +73,12 @@ const CancelDstMc = ({ goBack, setLoader, user, setNotify }) => {
   const fetchUserDetails = async () => {
     setLoader(true);
     const reqData = {
-      itiName : user?.user?.user?.username || ''
+      itiName: user?.user?.user?.username || ''
     };
-    const {data: {principal}} = await getLoggedInITIDetails(reqData);
+    const { data: { principal } } = await getLoggedInITIDetails(reqData);
     setUserDetails(principal[0]);
-    formSpec.forms[formId].prefill.district2 = "`"+`${principal[0]?.district}`+"`";
-    formSpec.forms[formId].prefill.ITI2 = "`"+`${principal[0]?.iti}`+"`";
+    formSpec.forms[formId].prefill.district2 = "`" + `${principal[0]?.district}` + "`";
+    formSpec.forms[formId].prefill.ITI2 = "`" + `${principal[0]?.iti}` + "`";
     setEncodedFormSpec(encodeURI(JSON.stringify(formSpec.forms[formId])));
     setEncodedFormURI(getFormURI(formId, formSpec.forms[formId].onSuccess, formSpec.forms[formId].prefill));
     setLoader(false);
@@ -97,7 +97,7 @@ const CancelDstMc = ({ goBack, setLoader, user, setNotify }) => {
   };
 
   const bindEventListener = () => {
-    window.addEventListener('message', (e) => {afterFormSubmit(e);});
+    window.addEventListener('message', (e) => { afterFormSubmit(e); });
   };
 
   useEffect(() => {
@@ -117,7 +117,7 @@ const CancelDstMc = ({ goBack, setLoader, user, setNotify }) => {
         <iframe title='current-form'
           style={{ height: "100vh", width: "100vw" }}
           src={
-            `http://localhost:8005/preview?formSpec=${encodedFormSpec}&xform=${encodedFormURI}`
+            `http://localhost:8065/preview?formSpec=${encodedFormSpec}&xform=${encodedFormURI}`
           }
         />
       </div>

@@ -1,7 +1,7 @@
 import { onGoBack } from '../../common/globals';
 import withGoBack from '../../redux/HOC/withGoBack';
 import Header from '../Header';
-import formSpecJSON from "./workflow.json";
+import formSpecJSON from "./updateWorkflow.json";
 import React, { useState, useEffect } from 'react';
 
 const UpdateDstMc = ({ goBack }) => {
@@ -64,7 +64,7 @@ const UpdateDstMc = ({ goBack }) => {
         <iframe title='current-form'
           style={{ height: "100vh", width: "100vw" }}
           src={
-            `http://localhost:8005/preview?formSpec=${encodedFormSpec}&xform=${encodedFormURI}`
+            `http://localhost:8065/preview?formSpec=${encodedFormSpec}&xform=${encodedFormURI}`
           }
         />
       </div>
